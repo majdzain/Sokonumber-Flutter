@@ -1,0 +1,15 @@
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/icudtl.dat
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/flutter_windows.dll
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/just_audio_windows_plugin.dll
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/assets/audio/next_level.wav
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/assets/audio/swipe.wav
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/assets/audio/win.wav
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/assets/audio/wrong_swipe.wav
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/assets/fonts/arcade.ttf
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag

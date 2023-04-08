@@ -1,0 +1,13 @@
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/CMakeFiles/INSTALL.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/CMakeFiles/ALL_BUILD.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/CMakeFiles/ZERO_CHECK.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/flutter/CMakeFiles/flutter_wrapper_plugin.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/flutter/CMakeFiles/flutter_wrapper_app.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/flutter/CMakeFiles/flutter_assemble.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/flutter/CMakeFiles/INSTALL.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/CMakeFiles/sokonumber_flutter.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/CMakeFiles/INSTALL.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/runner/CMakeFiles/ALL_BUILD.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/plugins/just_audio_windows/CMakeFiles/just_audio_windows_plugin.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/plugins/just_audio_windows/CMakeFiles/INSTALL.dir
+C:/Users/MAJD/Desktop/Flutter Projects/sokonumber_flutter/build/windows/plugins/just_audio_windows/CMakeFiles/ALL_BUILD.dir

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\MAJD\Desktop\Flutter Projects\sokonumber_flutter\build\windows\x64\Debug\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\MAJD\Desktop\Flutter Projects\sokonumber_flutter\build\windows\flutter\x64\Debug\flutter_assemble</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\MAJD\Desktop\Flutter Projects\sokonumber_flutter\build\windows\plugins\just_audio_windows\Debug\just_audio_windows_plugin.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\MAJD\Desktop\Flutter Projects\sokonumber_flutter\build\windows\runner\Debug\sokonumber_flutter.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
