@@ -10,7 +10,7 @@ A flutter application about sokonumber game which allows the **User** to play no
 
 ### Features 🚀
 - the game contains many levels.
-- play as a normal gamer start with the level 1.
+- play as a normal gamer by keyboard/mouse and start with the level 1.
 - track the selected search algorithm results start with the level 3.
 
 ## Functional Description
