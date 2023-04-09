@@ -26,7 +26,6 @@ User Player  |  User Player
 :-------------------------:|:-------------------------:
 ![player_user1](screenshots/player_user1.png)  |  ![player_user2](screenshots/player_user2.png)
 DFS Player  |  UCS Player
-:-------------------------:|:-------------------------:
 ![player_dfs](screenshots/player_dfs.png)  |  ![player_ucs](screenshots/player_ucs.png)
 
 ## For Educational Purposes
