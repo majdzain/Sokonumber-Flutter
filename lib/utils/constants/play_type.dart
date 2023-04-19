@@ -14,3 +14,20 @@ String getPlayTypeDisplay(PlayType playType) {
       return '';
   }
 }
+
+String getPlayTypeShortDisplay(PlayType playType) {
+  switch (playType) {
+    case PlayType.User:
+      return 'User';
+    case PlayType.DFS:
+      return 'DFS';
+    case PlayType.BFS:
+      return 'BFS';
+    case PlayType.UCS:
+      return 'UCS';
+    case PlayType.A_STAR:
+      return 'A*';
+    default:
+      return '';
+  }
+}

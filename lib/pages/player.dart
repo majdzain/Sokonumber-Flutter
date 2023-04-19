@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
@@ -758,523 +759,557 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Sokonumber - ${getPlayTypeShortDisplay(widget.playType)}',
+          style: TextStyle(fontSize: 28),
+        ),
+        backgroundColor: Color(0xFFFF77A8),
+        centerTitle: true,
+      ),
       body: RawKeyboardListener(
         autofocus: true,
         focusNode: _focusNode,
         onKey: _handleKeyEvent,
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Level Number : $level',
-                      style: TextStyle(
-                          fontSize: 50,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 20),
-                    isWinner || widget.playType != PlayType.User
-                        ? Text(
-                            widget.playType != PlayType.User
-                                ? getPlayTypeDisplay(widget.playType)
-                                : 'Congratulations, You Win!',
-                            style: TextStyle(fontSize: 40, color: Colors.blue),
-                          )
-                        : Container(),
-                    isWinner ? SizedBox(height: 15) : Container(),
-                    widget.playType != PlayType.User
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'The Node With Number : $movedNode Is Moved Now',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Solve Depth : $solveDepth',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Visited Nodes : $visitedLength',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Solve Path : $solvePath',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ),
-                              SizedBox(height: 5),
-                            ],
-                          )
-                        : Container(),
-                    SizedBox(height: 20),
-                    widget.playType == PlayType.User
-                        ? Container(
-                            width: 100 * sqrt(a.length),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color(0xFFFF77A8), width: 3)),
-                            height: 100 * sqrt(a.length),
-                            child: GridView.count(
-                              key: Key('grid_view'),
-                              crossAxisCount: sqrt(a.length).floor(),
-                              shrinkWrap: true,
-                              children: List.generate(
-                                  a.length,
-                                  (index) => a[index].isSwipeable
-                                      ? SlideTransition(
-                                          position: checkLeftOffset(index)
-                                              ? leftOffset
-                                              : zeroOffset,
-                                          child: SlideTransition(
-                                            position: checkRightOffset(index)
-                                                ? rightOffset
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        'Level Number : $level',
+                        style: TextStyle(
+                            fontSize:
+                                Platform.isAndroid || Platform.isIOS ? 30 : 50,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 20),
+                      isWinner || widget.playType != PlayType.User
+                          ? Text(
+                              widget.playType != PlayType.User
+                                  ? getPlayTypeDisplay(widget.playType)
+                                  : 'Congratulations, You Win!',
+                              style: TextStyle(
+                                  fontSize: Platform.isAndroid || Platform.isIOS
+                                      ? 25
+                                      : 40,
+                                  color: Colors.blue),
+                            )
+                          : Container(),
+                      isWinner ? SizedBox(height: 15) : Container(),
+                      widget.playType != PlayType.User
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'The Node With Number : $movedNode Is Moved Now',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Solve Depth : $solveDepth',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Visited Nodes : $visitedLength',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Solve Path : $solvePath',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black),
+                                ),
+                                SizedBox(height: 5),
+                              ],
+                            )
+                          : Container(),
+                      SizedBox(height: 20),
+                      widget.playType == PlayType.User
+                          ? Container(
+                              width: (sqrt(a.length) <= 4 ? 100 : 70) *
+                                  sqrt(a.length),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color(0xFFFF77A8), width: 3)),
+                              height: (sqrt(a.length) <= 4 ? 100 : 70) *
+                                  sqrt(a.length),
+                              child: GridView.count(
+                                key: Key('grid_view'),
+                                crossAxisCount: sqrt(a.length).floor(),
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children: List.generate(
+                                    a.length,
+                                    (index) => a[index].isSwipeable
+                                        ? SlideTransition(
+                                            position: checkLeftOffset(index)
+                                                ? leftOffset
                                                 : zeroOffset,
                                             child: SlideTransition(
-                                              position: checkUpOffset(index)
-                                                  ? upOffset
+                                              position: checkRightOffset(index)
+                                                  ? rightOffset
                                                   : zeroOffset,
                                               child: SlideTransition(
-                                                position: checkDownOffset(index)
-                                                    ? downOffset
+                                                position: checkUpOffset(index)
+                                                    ? upOffset
                                                     : zeroOffset,
-                                                child: GestureDetector(
-                                                  onHorizontalDragUpdate: (d) {
-                                                    if (!isWinner) {
-                                                      if (d.delta.dx >= 3 ||
-                                                          d.delta.dx <= -3) {
-                                                        if (d.delta.direction ==
-                                                                0 ||
-                                                            d.delta.direction ==
-                                                                pi) {
-                                                          if (d.delta.dx > 0 &&
-                                                              rightController
-                                                                      .status !=
-                                                                  AnimationStatus
-                                                                      .forward) {
-                                                            if (checkRightOffset(
-                                                                index)) {
-                                                              addCurrentIndexes(
-                                                                  Offset(1.0,
-                                                                      0.0));
-                                                              rightController
-                                                                  .forward();
-                                                            }
-                                                          } else if (d.delta
-                                                                      .dx <
-                                                                  0 &&
-                                                              leftController
-                                                                      .status !=
-                                                                  AnimationStatus
-                                                                      .forward) {
-                                                            if (checkLeftOffset(
-                                                                index)) {
-                                                              addCurrentIndexes(
-                                                                  Offset(-1.0,
-                                                                      0.0));
-                                                              leftController
-                                                                  .forward();
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  onVerticalDragUpdate: (d) {
-                                                    if (!isWinner) {
-                                                      if (d.delta.dy >= 3 ||
-                                                          d.delta.dy <= -3) {
-                                                        if (d.delta.direction ==
-                                                                (pi / 2) ||
-                                                            d.delta.direction ==
-                                                                -(pi / 2)) {
-                                                          if (d.delta.dy < 0 &&
-                                                              upController
-                                                                      .status !=
-                                                                  AnimationStatus
-                                                                      .forward) {
-                                                            if (checkUpOffset(
-                                                                index)) {
-                                                              addCurrentIndexes(
-                                                                  Offset(0.0,
-                                                                      -1.0));
-                                                              upController
-                                                                  .forward();
-                                                            }
-                                                          } else if (d.delta
-                                                                      .dy >
-                                                                  0 &&
-                                                              downController
-                                                                      .status !=
-                                                                  AnimationStatus
-                                                                      .forward) {
-                                                            if (checkDownOffset(
-                                                                index)) {
-                                                              addCurrentIndexes(
-                                                                  Offset(0.0,
-                                                                      1.0));
-                                                              downController
-                                                                  .forward();
+                                                child: SlideTransition(
+                                                  position:
+                                                      checkDownOffset(index)
+                                                          ? downOffset
+                                                          : zeroOffset,
+                                                  child: GestureDetector(
+                                                    onHorizontalDragUpdate:
+                                                        (d) {
+                                                      if (!isWinner) {
+                                                        if (d.delta.dx >= 3 ||
+                                                            d.delta.dx <= -3) {
+                                                          if (d.delta.direction ==
+                                                                  0 ||
+                                                              d.delta.direction ==
+                                                                  pi) {
+                                                            if (d.delta.dx >
+                                                                    0 &&
+                                                                rightController
+                                                                        .status !=
+                                                                    AnimationStatus
+                                                                        .forward) {
+                                                              if (checkRightOffset(
+                                                                  index)) {
+                                                                addCurrentIndexes(
+                                                                    Offset(1.0,
+                                                                        0.0));
+                                                                rightController
+                                                                    .forward();
+                                                              }
+                                                            } else if (d.delta
+                                                                        .dx <
+                                                                    0 &&
+                                                                leftController
+                                                                        .status !=
+                                                                    AnimationStatus
+                                                                        .forward) {
+                                                              if (checkLeftOffset(
+                                                                  index)) {
+                                                                addCurrentIndexes(
+                                                                    Offset(-1.0,
+                                                                        0.0));
+                                                                leftController
+                                                                    .forward();
+                                                              }
                                                             }
                                                           }
                                                         }
                                                       }
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                      width: 100,
-                                                      height: 100,
-                                                      decoration: BoxDecoration(
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.8),
-                                                              spreadRadius: 5,
-                                                              blurRadius: 5,
-                                                              offset: Offset(1,
-                                                                  1), // changes position of shadow
-                                                            ),
-                                                          ],
-                                                          border: Border.all(
-                                                              color:
-                                                                  Colors.grey,
-                                                              width: 2)),
-                                                      child: Center(
-                                                          child: NumberCell(
-                                                        key: Key(
-                                                            'number_${index}_${a[index].isMatch}'),
-                                                        number: a[index].n!,
-                                                        isMatch:
-                                                            a[index].isMatch,
-                                                      ))),
+                                                    },
+                                                    onVerticalDragUpdate: (d) {
+                                                      if (!isWinner) {
+                                                        if (d.delta.dy >= 3 ||
+                                                            d.delta.dy <= -3) {
+                                                          if (d.delta.direction ==
+                                                                  (pi / 2) ||
+                                                              d.delta.direction ==
+                                                                  -(pi / 2)) {
+                                                            if (d.delta.dy <
+                                                                    0 &&
+                                                                upController
+                                                                        .status !=
+                                                                    AnimationStatus
+                                                                        .forward) {
+                                                              if (checkUpOffset(
+                                                                  index)) {
+                                                                addCurrentIndexes(
+                                                                    Offset(0.0,
+                                                                        -1.0));
+                                                                upController
+                                                                    .forward();
+                                                              }
+                                                            } else if (d.delta
+                                                                        .dy >
+                                                                    0 &&
+                                                                downController
+                                                                        .status !=
+                                                                    AnimationStatus
+                                                                        .forward) {
+                                                              if (checkDownOffset(
+                                                                  index)) {
+                                                                addCurrentIndexes(
+                                                                    Offset(0.0,
+                                                                        1.0));
+                                                                downController
+                                                                    .forward();
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                        width: 100,
+                                                        height: 100,
+                                                        decoration: BoxDecoration(
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .withOpacity(
+                                                                        0.8),
+                                                                spreadRadius: 5,
+                                                                blurRadius: 5,
+                                                                offset: Offset(
+                                                                    1,
+                                                                    1), // changes position of shadow
+                                                              ),
+                                                            ],
+                                                            border: Border.all(
+                                                                color:
+                                                                    Colors.grey,
+                                                                width: 2)),
+                                                        child: Center(
+                                                            child: NumberCell(
+                                                          key: Key(
+                                                              'number_${index}_${a[index].isMatch}'),
+                                                          number: a[index].n!,
+                                                          isMatch:
+                                                              a[index].isMatch,
+                                                        ))),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        )
-                                      : a[index].type == 2
-                                          ? EmptyCell(
-                                              key: Key('empty_$index'),
-                                            )
-                                          : a[index].type == 3
-                                              ? WallCell(
-                                                  key: Key('wall_$index'),
-                                                )
-                                              : EmptyNumberCell(
-                                                  key: Key(
-                                                      'empty_number_$index'),
-                                                  number: a[index].n!)),
-                            ),
-                          )
-                        : a.isEmpty
-                            ? Center(child: CircularProgressIndicator())
-                            : GridView.builder(
-                                itemCount: nodes.length,
-                                shrinkWrap: true,
-                                itemBuilder: (_, ind) {
-                                  List<Cell> a = nodes[ind].currentCells;
-                                  return Padding(
-                                    key: Key('padding_$ind'),
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Container(
-                                      width: 60 * sqrt(a.length),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Color(0xFFFF77A8),
-                                              width: 3)),
-                                      height: 60 * sqrt(a.length),
-                                      child: GridView.count(
-                                        key: Key('grid_view_$ind'),
-                                        crossAxisCount: sqrt(a.length).floor(),
-                                        shrinkWrap: true,
-                                        children: List.generate(
-                                          a.length,
-                                          (index) => a[index].isSwipeable
-                                              ? SlideTransition(
-                                                  position:
-                                                      checkLeftOffset(index)
-                                                          ? leftOffset
-                                                          : zeroOffset,
-                                                  child: SlideTransition(
+                                          )
+                                        : a[index].type == 2
+                                            ? EmptyCell(
+                                                key: Key('empty_$index'),
+                                              )
+                                            : a[index].type == 3
+                                                ? WallCell(
+                                                    key: Key('wall_$index'),
+                                                  )
+                                                : EmptyNumberCell(
+                                                    key: Key(
+                                                        'empty_number_$index'),
+                                                    number: a[index].n!)),
+                              ),
+                            )
+                          : a.isEmpty
+                              ? Center(child: CircularProgressIndicator())
+                              : GridView.builder(
+                                  itemCount: nodes.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (_, ind) {
+                                    List<Cell> a = nodes[ind].currentCells;
+                                    return Padding(
+                                      key: Key('padding_$ind'),
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Container(
+                                        width: 60 * sqrt(a.length),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Color(0xFFFF77A8),
+                                                width: 3)),
+                                        height: 60 * sqrt(a.length),
+                                        child: GridView.count(
+                                          key: Key('grid_view_$ind'),
+                                          crossAxisCount:
+                                              sqrt(a.length).floor(),
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          children: List.generate(
+                                            a.length,
+                                            (index) => a[index].isSwipeable
+                                                ? SlideTransition(
                                                     position:
-                                                        checkRightOffset(index)
-                                                            ? rightOffset
+                                                        checkLeftOffset(index)
+                                                            ? leftOffset
                                                             : zeroOffset,
                                                     child: SlideTransition(
                                                       position:
-                                                          checkUpOffset(index)
-                                                              ? upOffset
+                                                          checkRightOffset(
+                                                                  index)
+                                                              ? rightOffset
                                                               : zeroOffset,
                                                       child: SlideTransition(
                                                         position:
-                                                            checkDownOffset(
-                                                                    index)
-                                                                ? downOffset
+                                                            checkUpOffset(index)
+                                                                ? upOffset
                                                                 : zeroOffset,
-                                                        child: GestureDetector(
-                                                          onHorizontalDragUpdate:
-                                                              (d) {
-                                                            if (!isWinner) {
-                                                              if (d.delta.dx >=
-                                                                      3 ||
-                                                                  d.delta.dx <=
-                                                                      -3) {
-                                                                if (d.delta.direction ==
-                                                                        0 ||
-                                                                    d.delta.direction ==
-                                                                        pi) {
-                                                                  if (d.delta.dx >
-                                                                          0 &&
-                                                                      rightController
-                                                                              .status !=
-                                                                          AnimationStatus
-                                                                              .forward) {
-                                                                    if (checkRightOffset(
-                                                                        index)) {
-                                                                      addCurrentIndexes(Offset(
-                                                                          1.0,
-                                                                          0.0));
-                                                                      rightController
-                                                                          .forward();
-                                                                    }
-                                                                  } else if (d.delta
-                                                                              .dx <
-                                                                          0 &&
-                                                                      leftController
-                                                                              .status !=
-                                                                          AnimationStatus
-                                                                              .forward) {
-                                                                    if (checkLeftOffset(
-                                                                        index)) {
-                                                                      addCurrentIndexes(Offset(
-                                                                          -1.0,
-                                                                          0.0));
-                                                                      leftController
-                                                                          .forward();
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          },
-                                                          onVerticalDragUpdate:
-                                                              (d) {
-                                                            if (!isWinner) {
-                                                              if (d.delta.dy >=
-                                                                      3 ||
-                                                                  d.delta.dy <=
-                                                                      -3) {
-                                                                if (d.delta.direction ==
-                                                                        (pi /
-                                                                            2) ||
-                                                                    d.delta.direction ==
-                                                                        -(pi /
-                                                                            2)) {
-                                                                  if (d.delta.dy <
-                                                                          0 &&
-                                                                      upController
-                                                                              .status !=
-                                                                          AnimationStatus
-                                                                              .forward) {
-                                                                    if (checkUpOffset(
-                                                                        index)) {
-                                                                      addCurrentIndexes(Offset(
-                                                                          0.0,
-                                                                          -1.0));
-                                                                      upController
-                                                                          .forward();
-                                                                    }
-                                                                  } else if (d.delta
-                                                                              .dy >
-                                                                          0 &&
-                                                                      downController
-                                                                              .status !=
-                                                                          AnimationStatus
-                                                                              .forward) {
-                                                                    if (checkDownOffset(
-                                                                        index)) {
-                                                                      addCurrentIndexes(Offset(
-                                                                          0.0,
-                                                                          1.0));
-                                                                      downController
-                                                                          .forward();
+                                                        child: SlideTransition(
+                                                          position:
+                                                              checkDownOffset(
+                                                                      index)
+                                                                  ? downOffset
+                                                                  : zeroOffset,
+                                                          child:
+                                                              GestureDetector(
+                                                            onHorizontalDragUpdate:
+                                                                (d) {
+                                                              if (!isWinner) {
+                                                                if (d.delta.dx >=
+                                                                        3 ||
+                                                                    d.delta.dx <=
+                                                                        -3) {
+                                                                  if (d.delta.direction ==
+                                                                          0 ||
+                                                                      d.delta.direction ==
+                                                                          pi) {
+                                                                    if (d.delta.dx >
+                                                                            0 &&
+                                                                        rightController.status !=
+                                                                            AnimationStatus
+                                                                                .forward) {
+                                                                      if (checkRightOffset(
+                                                                          index)) {
+                                                                        addCurrentIndexes(Offset(
+                                                                            1.0,
+                                                                            0.0));
+                                                                        rightController
+                                                                            .forward();
+                                                                      }
+                                                                    } else if (d.delta.dx <
+                                                                            0 &&
+                                                                        leftController.status !=
+                                                                            AnimationStatus.forward) {
+                                                                      if (checkLeftOffset(
+                                                                          index)) {
+                                                                        addCurrentIndexes(Offset(
+                                                                            -1.0,
+                                                                            0.0));
+                                                                        leftController
+                                                                            .forward();
+                                                                      }
                                                                     }
                                                                   }
                                                                 }
                                                               }
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                              width: 100,
-                                                              height: 100,
-                                                              decoration: BoxDecoration(
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .withOpacity(
-                                                                              0.8),
-                                                                      spreadRadius:
-                                                                          5,
-                                                                      blurRadius:
-                                                                          5,
-                                                                      offset: Offset(
-                                                                          1,
-                                                                          1), // changes position of shadow
-                                                                    ),
-                                                                  ],
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width:
-                                                                          2)),
-                                                              child: Center(
-                                                                  child:
-                                                                      NumberCell(
-                                                                key: Key(
-                                                                    'number_${ind}_$index'),
-                                                                fontSize: 18,
-                                                                number:
-                                                                    a[index].n!,
-                                                                isMatch: a[
-                                                                        index]
-                                                                    .isMatch,
-                                                              ))),
+                                                            },
+                                                            onVerticalDragUpdate:
+                                                                (d) {
+                                                              if (!isWinner) {
+                                                                if (d.delta.dy >=
+                                                                        3 ||
+                                                                    d.delta.dy <=
+                                                                        -3) {
+                                                                  if (d.delta.direction ==
+                                                                          (pi /
+                                                                              2) ||
+                                                                      d.delta.direction ==
+                                                                          -(pi /
+                                                                              2)) {
+                                                                    if (d.delta.dy <
+                                                                            0 &&
+                                                                        upController.status !=
+                                                                            AnimationStatus
+                                                                                .forward) {
+                                                                      if (checkUpOffset(
+                                                                          index)) {
+                                                                        addCurrentIndexes(Offset(
+                                                                            0.0,
+                                                                            -1.0));
+                                                                        upController
+                                                                            .forward();
+                                                                      }
+                                                                    } else if (d.delta.dy >
+                                                                            0 &&
+                                                                        downController.status !=
+                                                                            AnimationStatus.forward) {
+                                                                      if (checkDownOffset(
+                                                                          index)) {
+                                                                        addCurrentIndexes(Offset(
+                                                                            0.0,
+                                                                            1.0));
+                                                                        downController
+                                                                            .forward();
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                                width: 100,
+                                                                height: 100,
+                                                                decoration: BoxDecoration(
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .withOpacity(0.8),
+                                                                        spreadRadius:
+                                                                            5,
+                                                                        blurRadius:
+                                                                            5,
+                                                                        offset: Offset(
+                                                                            1,
+                                                                            1), // changes position of shadow
+                                                                      ),
+                                                                    ],
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        width:
+                                                                            2)),
+                                                                child: Center(
+                                                                    child:
+                                                                        NumberCell(
+                                                                  key: Key(
+                                                                      'number_${ind}_$index'),
+                                                                  fontSize: 18,
+                                                                  number:
+                                                                      a[index]
+                                                                          .n!,
+                                                                  isMatch: a[
+                                                                          index]
+                                                                      .isMatch,
+                                                                ))),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                )
-                                              : a[index].type == 2
-                                                  ? EmptyCell(
-                                                      key: Key(
-                                                          'empty_${ind}_$index'),
-                                                    )
-                                                  : a[index].type == 3
-                                                      ? WallCell(
-                                                          key: Key(
-                                                              'wall_${ind}_$index'),
-                                                        )
-                                                      : EmptyNumberCell(
-                                                          key: Key(
-                                                              'empty_number_${ind}_$index'),
-                                                          fontSize: 18,
-                                                          number: a[index].n!),
+                                                  )
+                                                : a[index].type == 2
+                                                    ? EmptyCell(
+                                                        key: Key(
+                                                            'empty_${ind}_$index'),
+                                                      )
+                                                    : a[index].type == 3
+                                                        ? WallCell(
+                                                            key: Key(
+                                                                'wall_${ind}_$index'),
+                                                          )
+                                                        : EmptyNumberCell(
+                                                            key: Key(
+                                                                'empty_number_${ind}_$index'),
+                                                            fontSize: 18,
+                                                            number:
+                                                                a[index].n!),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 8),
-                              ),
-                    isWinner ? SizedBox(height: 15) : Container(),
-                    isWinner
-                        ? ElevatedButton(
-                            onPressed: () {
-                              nextLevelAudioPlayer.play();
-                              a = levels[level + 1]!;
-                              setState(() {
-                                level = level + 1;
-                                a = List.from(a);
-                              });
-                              setState(() {
-                                isWinner = false;
-                                nodes = [];
-                                solveDepth = '0';
-                                visitedLength = '0';
-                              });
-                              start(widget.playType);
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Next',
-                                  style: TextStyle(
-                                      fontSize: 30, color: Colors.white),
+                                    );
+                                  },
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: Platform.isAndroid ||
+                                                  Platform.isIOS
+                                              ? 3
+                                              : 8),
                                 ),
-                                SizedBox(width: 10),
-                                Icon(Icons.arrow_forward,
-                                    size: 30, color: Colors.white),
-                              ],
-                            ),
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.blue),
-                          )
-                        : Container(),
-                    SizedBox(height: 15),
-                  ],
+                      isWinner ? SizedBox(height: 15) : Container(),
+                      isWinner
+                          ? ElevatedButton(
+                              onPressed: () {
+                                nextLevelAudioPlayer.play();
+                                a = levels[level + 1]!;
+                                setState(() {
+                                  level = level + 1;
+                                  a = List.from(a);
+                                });
+                                setState(() {
+                                  isWinner = false;
+                                  nodes = [];
+                                  solveDepth = '0';
+                                  visitedLength = '0';
+                                });
+                                start(widget.playType);
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Next',
+                                    style: TextStyle(
+                                        fontSize: 30, color: Colors.white),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Icon(Icons.arrow_forward,
+                                      size: 30, color: Colors.white),
+                                ],
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.blue),
+                            )
+                          : Container(),
+                      SizedBox(height: 15),
+                    ],
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: ConfettiWidget(
-                  confettiController: _controllerCenter,
-                  blastDirectionality: BlastDirectionality
-                      .explosive, // don't specify a direction, blast randomly
-                  // start again as soon as the animation is finished
-                  colors: const [
-                    Colors.green,
-                    Colors.blue,
-                    Colors.pink,
-                    Colors.orange,
-                    Colors.purple
-                  ],
-                  numberOfParticles:
-                      300, // manually specify the colors to be used
-                  createParticlePath: drawStar, // define a custom shape/path.
+                Align(
+                  alignment: Alignment.center,
+                  child: ConfettiWidget(
+                    confettiController: _controllerCenter,
+                    blastDirectionality: BlastDirectionality
+                        .explosive, // don't specify a direction, blast randomly
+                    // start again as soon as the animation is finished
+                    colors: const [
+                      Colors.green,
+                      Colors.blue,
+                      Colors.pink,
+                      Colors.orange,
+                      Colors.purple
+                    ],
+                    numberOfParticles:
+                        300, // manually specify the colors to be used
+                    createParticlePath: drawStar, // define a custom shape/path.
+                  ),
                 ),
-              ),
-              Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Center(
-                              child: Icon(Icons.home_rounded,
-                                  color: Colors.black, size: 40),
-                            )),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isWinner = false;
-                                a = List.from(levels[level]!);
-                                nodes = [];
-                              });
-                              start(widget.playType);
-                            },
-                            icon: Center(
-                              child: Icon(Icons.refresh,
-                                  color: Colors.red, size: 40),
-                            )),
-                      ],
-                    ),
-                  ))
-            ],
+                Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Platform.isAndroid || Platform.isIOS
+                              ? Container()
+                              : IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  icon: Center(
+                                    child: Icon(Icons.home_rounded,
+                                        color: Colors.black, size: 40),
+                                  )),
+                          Platform.isAndroid || Platform.isIOS
+                              ? Container()
+                              : SizedBox(
+                                  width: 20,
+                                ),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isWinner = false;
+                                  a = List.from(levels[level]!);
+                                  nodes = [];
+                                });
+                                start(widget.playType);
+                              },
+                              icon: Center(
+                                child: Icon(Icons.refresh,
+                                    color: Colors.red, size: 40),
+                              )),
+                        ],
+                      ),
+                    ))
+              ],
+            ),
           ),
         ),
       ),
