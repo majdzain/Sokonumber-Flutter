@@ -1,5 +1,5 @@
-![icon](screenshots/sokonumber.jpeg)
 # Sokonumber-Flutter
+![overview](screenshots/overview.png)
 A flutter application about sokonumber game which allows the **User** to play normally or play and see as a **Search Algorithm** which can be one of the following algorithms:
 - DFS (Depth First Search) Algorithm.
 - BFS (Bridth First Search) Algorithm.
